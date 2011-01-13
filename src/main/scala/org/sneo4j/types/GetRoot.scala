@@ -1,8 +1,8 @@
 package org.sneo4j.types
 
-import reflect.BeanProperty
-import org.codehaus.jackson.map.annotate._
-import org.codehaus.jackson.annotate._
+import reflect._
+import sjson.json._
+import annotation.target._
 
 /**
  * Class used to represent the response from a "Get root" request.
@@ -11,10 +11,20 @@ import org.codehaus.jackson.annotate._
  *
  * @author Daniel Hackney
  */
-case class GetRoot(@BeanProperty var relationship_index:String,
-                   @BeanProperty var node:String,
-                   @BeanProperty var extensions_info:String,
-                   @BeanProperty var node_index:String,
-                   @BeanProperty var reference_node:String) {
+@BeanInfo
+case class GetRoot(@(JSONProperty @getter)(value = "relationship_index")
+                   relationshipIndex:String,
+
+                   @(JSONProperty @getter)(value = "node")
+                   nodePath:String,
+
+                   @(JSONProperty @getter)(value = "extensions_info")
+                   extensionsInfo:String,
+
+                   @(JSONProperty @getter)(value = "node_index")
+                   nodeIndex:String,
+
+                   @(JSONProperty @getter)(value = "reference_node")
+                   referenceNode:String) {
   def this() = this(null, null, null, null, null)
 }

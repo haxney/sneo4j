@@ -1,7 +1,7 @@
 package org.sneo4j.test
 
 import org.specs.Specification
-import sjson.json.Serializer.{SJSON => sj}
+import sjson.json.Serializer.{SJSON => s}
 import org.sneo4j.types._
 
 class SerializeTest extends Specification {
@@ -10,19 +10,19 @@ class SerializeTest extends Specification {
 
   "A GetRoot object" should {
     "serialize to JSON" in {
-      val result = mapper.writeValueAsString(root)
+      val result = new String(s.out(root), "UTF-8")
       result must include("\"node\":\"node-path\"")
       result must include("\"extensions_info\":\"ext-info\"")
     }
 
     "deserialize from JSON" in {
-      mapper.readValue(rootString, classOf[GetRoot]) mustEqual root
+      s.in[GetRoot](rootString) mustEqual root
     }
   }
 
 
-  "A GetNode object" should {
-    "serialize to JSON"
-    "deserialze from JSON
-  }
+  // "A GetNode object" should {
+  //   "serialize to JSON"
+  //   "deserialze from JSON"
+  // }
 }
